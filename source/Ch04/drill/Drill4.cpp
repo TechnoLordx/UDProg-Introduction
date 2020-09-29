@@ -100,20 +100,13 @@ int main()
             sum += num;
             atvaltott.push_back(num);
         }
-        /* // teszt átváltásra, hogy müködik
-        if(atvaltott.size() == 1)
-        { 
-
-        cout << "Csak egy számot írt be ami a: " << atvaltott[0] << endl;
-
-        } */  
      
         if(atvaltott.size() > 1)
         {
 
-             cout << "A legkisebb szám: " << *min_element(atvaltott.begin(), atvaltott.end()) << " m" << endl; 
+        cout << "A legkisebb szám: " << *min_element(atvaltott.begin(), atvaltott.end()) << " m" << endl; 
 
-             cout << "A legnagyobb szám: " << *max_element(atvaltott.begin(), atvaltott.end()) << " m" << endl; 
+        cout << "A legnagyobb szám: " << *max_element(atvaltott.begin(), atvaltott.end()) << " m" << endl; 
     
         }
 
@@ -125,7 +118,7 @@ int main()
             cout << atvaltott[i] << " " << "m" << endl; //rendezett kiíratás
         }
     
-            cout << "Az összértékük: " << sum << endl;
+    cout << "Az összértékük: " << sum << endl;
 	return 0;
         
 

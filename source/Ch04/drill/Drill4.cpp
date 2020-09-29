@@ -52,8 +52,8 @@ int main()
         {
             cout << "Ez nem szám, kérem írjon számot!" << endl;
 
-            cin.clear();
-            cin.ignore();
+            cin.clear(); // törli a hiba üzenetet \io\
+            cin.ignore(); // következő új sorra ugrik, figyelmen kívűl haggya az előzőt
             cin >> num;
 
         }

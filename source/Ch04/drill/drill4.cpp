@@ -2,6 +2,25 @@
 
 int main()
 {
+/*
+    	cout <<"Kérem írjon 2 számot ha szeretné befejezni írja be | -t \n";
+ 	
+    double a;
+    double b;
+ while(cin >> a >> b){
+ 	if(a == b){
+ 		cout << "A számok egyenlőek \n";
+ 	}else
+       	if (a > b) 
+        cout << "A nagyobbik szám: " << a << endl;
+        if (b > a) 
+        cout << "A nagyobbik szám: " << b << endl;
+    if(abs(a - b) <= 0.01)
+        cout << "Majdnem egyenlő" << endl;
+   
+    }
+*/
+
     double szam;
     string meret;
     vector<string> joMeretek{"cm", "m", "in", "ft"};

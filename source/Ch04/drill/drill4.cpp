@@ -48,7 +48,7 @@ int main()
 
             db++;
 
-            if(meret == "cm"){}
+            if(meret == "cm")
             {
                 szam /= 100;
                 sum += szam;

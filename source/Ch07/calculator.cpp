@@ -1,14 +1,13 @@
 #include "std_lib_facilities.h"
 
 constexpr char number = '8';
-constexpr char quit = 'e';
+constexpr char quit = 'q';
 constexpr char print = ';';
 constexpr char name = 'a';
 constexpr char let = '#';
 constexpr char square_root = '@';
-constexpr char cpow = 'p';
+constexpr char pown = 'p';
 
-// const string declkey = "#";
 const string quitkey = "exit";
 const string sqrtkey = "sqrt";
 const string powkey = "pow";
@@ -104,7 +103,7 @@ Token Token_stream::get(){
 		case '/':
 		case '%':
 		case '=':
-		case let: // már karakterként van értelmeve nm deckey '#'
+		case let: 
 		case ',': 
 			return Token(ch);
 		case '.':
@@ -123,10 +122,10 @@ Token Token_stream::get(){
     			s += ch;
     			while (cin.get(ch) && (isalpha(ch) || isdigit(ch))) s+=ch;
     			cin.putback(ch);
-    			//if (s == declkey) return Token{let}; // let x = ...
-    			if(s == quitkey) return Token{quit}; // quit a kilépéshez
-    			else if(s == sqrtkey) return Token{square_root}; //square_root tipusu token hivja clac_sqrt
-    			else if(s == powkey) return Token{cpow};  
+    			//if (s == declkey) return Token{let}; // let x = ... 
+    			if(s == quitkey) return Token{quit};            // quit a kilépéshez
+    			else if(s == sqrtkey) return Token{square_root};//square_root tipusu token hivja clac_sqrt()
+    			else if(s == powkey) return Token{npow};        // npow tipusu tokent adunk vissza 
 
     			else if (is_declared(s))
     				return Token(number, get_value(s));
@@ -155,10 +154,10 @@ Token_stream ts;
 
 double calc_sqrt(){
 
-	char ch; //olvassuk a következő karaktert és ha ez 
-	if (cin.get(ch) && ch !='(') error ("'(' expected");
-	cin.putback(ch); // vissza kell tenni mert eggyel többet olvasott be
-	double d = expression(); // az ilyen esetek miatt (3*2+1) v (12+y)
+	Token t = ts.get();                                     //olvassuk a következő karaktert és ha ez 
+	if (t = ts.get() && t.kind !='(') error ("'(' expected");
+	cin.putback(t);                                         // vissza kell tenni mert eggyel többet olvasott be
+	double d = expression();                                // az ilyen esetek miatt (3*2+1) v (12+y)
 
 	if(d < 0) error("sqrt: negative value expected ");
 
@@ -170,12 +169,12 @@ double primary();
 
 double calc_pow(){
 
-	char ch;
-	if (cin.get(ch) && ch != '(') error("'(' expected");
+	Token t = ts.get();
+	if (t = ts.get() && t.kind != '(') error("'(' expected");
 		double d = primary();
 
-	Token t = ts.get();
-	if (t.kind != ',') error("',' expected");
+	Token t1 = ts.get();
+	if (t1.kind != ',') error("',' expected");
 		double d2 = primary();
 
 	Token t2 = ts.get();
@@ -204,7 +203,7 @@ double primary(){
 			return primary();
 		case square_root:
 			return calc_sqrt(); 	
-		case cpow:
+		case npow:// else if(s == powkey) return Token{npow}; ide tér visza és vissza tér a calc_pow()fv re
 			return calc_pow();		
 		default:
 			error("primary expected");
@@ -289,7 +288,7 @@ double declaration(){
 	Token t2 = ts.get();
 	if (t2.kind != '=') error("= missing in declaration of ", var_name);
 
-	double d = expression(); // 
+	double d = expression(); 
 	define_name(var_name, d);
 	return d;
 }

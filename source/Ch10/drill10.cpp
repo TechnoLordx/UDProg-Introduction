@@ -14,15 +14,25 @@ bool operator==(const Point& p1, const Point& p2)
     return (p1.x == p2.x && p1.y == p2.y);
 }
 
-
 istream& operator>>(istream& is, vector<Point>& p)
 {
-	for(int i = 0;i < 7; i++)
-	{
-		double x = 0, y = 0 ;
-		is >> x >> y;
 
-		p.push_back(Point{x,y});
+	for(int i = 0; i < 7; i++){
+
+	double x = 0, y = 0 ;
+	char ch1,ch2,ch3;
+
+	is >> ch1 >> x >> ch2 >> y >> ch3;
+	if(!is) return is;
+	
+	if(ch1 != '(' && ch2 != ',' && ch3 == ')'){
+
+		is.clear(ios_base::failbit);
+		return is;
+		}
+
+	p.push_back(Point{x,y});
+	
 	}
 
 	return is;
@@ -38,11 +48,11 @@ ostream& operator<<(ostream& os, vector<Point>& p){
 
 void getPoints()
 {
-	double x = 0;
-	double y = 0;
-
 	for(int i = 0;i < 7 ;i++)
 	{
+		double x = 0;
+		double y = 0;
+
 		cin >> x >> y;
 		original_points.push_back(Point{x, y});
 	}
@@ -56,24 +66,25 @@ try{
 	Point point(3.2,32.2);
 	cout << '(' << point.x << ',' << point.y<< ')' << endl;
 
-
+	cout << "Pls give me seven pairs of coordinate!"<< endl;
 	cout <<"--------------<original_points>-----------------"<< endl;
+
 	getPoints();
 	cout << original_points;
 
 	const string ofile = "mydata.txt";
 	ofstream ost {ofile};
 
-	for(auto& pt : original_points)	
-		ost <<  pt.x << " " << pt.y << endl; // Never do here stuff like that ost <<'(' <<pt.x << ', ' << pt.y << ')'<< endl; u did it in the os override to look a like this (x,y)
+	ost << original_points << endl; 
 	ost.close();
-
 
     cout <<"--------------<processed_points>-----------------"<< endl;
 
     const string ifile = "mydata.txt";
 	ifstream ist {ifile};
+	
 	ist >> processed_points;
+
 	ist.close();
 
 	cout << processed_points << endl;
